@@ -47,8 +47,7 @@ HEADERS += \
     mythreadreader.h \
     errorevent.h \
     mylistview.h \
-    mythreadhelper.h \
-    progressupdater.h
+    mythreadhelper.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
