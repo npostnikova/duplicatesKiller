@@ -48,7 +48,8 @@ void MainWindow::onClick(QStandardItem* item) {
 
 void MainWindow::openInNotepad(const QModelIndex& index) {
     if (index.column() == 0 && ui->duplicatesTreeView->getModel()->itemFromIndex(index)->rowCount() == 0) {
-        QProcess::execute("notepad.exe", {index.data().toString()});
+        //QDesktopServices::openUrl(QUrl::fromLocalFile( absolute_pathQProcess::execute("notepad.exe", {index.data().toString()});
+        // item activated!!!!
     }
 }
 
@@ -119,7 +120,6 @@ void MainWindow::runSearch(MainWindow * w, QString const& dir, Ui_MainWindow* ui
 
     while (!future.isFinished()) {
         QTimer timer;
-        timer.setSingleShot(true);
         timer.start(1000);
         QCoreApplication::processEvents(QEventLoop::AllEvents | QEventLoop::WaitForMoreEvents);
     }
@@ -131,8 +131,8 @@ void MainWindow::runSearch(MainWindow * w, QString const& dir, Ui_MainWindow* ui
         else
             duplicatesSearcher.sendError({"", Message::DONE, "The search is successfully done!"});
     } else {
-        emit duplicatesSearcher.sendMessage("The search was cancelled :(");
-        duplicatesSearcher.sendError({"", Message::ERROR, "The search was cancelled!"});
+        //emit duplicatesSearcher.sendMessage("The search was cancelled :(");
+        //duplicatesSearcher.sendError({"", Message::ERROR, "The search was cancelled!"});
     }
 }
 
@@ -143,7 +143,6 @@ void MainWindow::scan_directory(QString const& dir) {
 
     QFuture<void> future = QtConcurrent::run(runSearch, this, dir, ui.get());
     future.waitForFinished();
-
 }
 
 void MainWindow::show_about_dialog() {
