@@ -22,7 +22,7 @@ public:
 
     ~DuplicatesSearcher();
 
-    inline bool isCanceled();
+    bool isCanceled();
     
     static void checkFilesEquality(QDir directory, DuplicatesSearcher* searcher);
 
