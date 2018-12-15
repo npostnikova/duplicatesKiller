@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/about.png</file>
+        <file>img/cross.png</file>
+        <file>img/cute_warn.png</file>
+        <file>img/delete.png</file>
+        <file>img/exclaim.png</file>
+        <file>img/exit.png</file>
+        <file>img/help.png</file>
+        <file>img/icons8-box-important-64.png</file>
+        <file>img/icons8-exit-64.png</file>
+        <file>img/icons8-puzzled-64.png</file>
+        <file>img/open_folder.png</file>
+        <file>img/question.png</file>
+        <file>img/rocket.png</file>
+        <file>img/stop.png</file>
+        <file>img/tick.png</file>
+    </qresource>
+</RCC>
