@@ -7,6 +7,7 @@
 #include "duplicatesevent.h"
 #include <QApplication>
 
+
 struct MyModel : public QStandardItemModel {
     MyModel(QWidget * parent);
 
@@ -17,6 +18,7 @@ struct MyModel : public QStandardItemModel {
     void appendRow(QList<QStandardItem*> const& data);
 
     void appendRows(std::vector<std::vector<QString>> const& data);
+
 };
 
 struct MyTreeView : QTreeView {

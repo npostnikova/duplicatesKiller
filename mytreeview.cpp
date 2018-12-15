@@ -11,22 +11,13 @@ MyTreeView::MyTreeView(QWidget * parent) : QTreeView(parent), deleter(parent), m
 
 void MyTreeView::setUp() {
     setEditTriggers(QAbstractItemView::NoEditTriggers);
-    //QStandardItem * item = new QStandardItem;
-    //model->
     model->setHorizontalHeaderLabels({"File name", "size", "date"});
-//    resizeColumnToContents(2);
-//    resizeColumnToContents(1);
-//    resizeColumnToContents(0);
     setModel(model);
     header()->setStretchLastSection(false);
     header()->setSectionResizeMode(0, QHeaderView::Stretch);
-    //setColumnWidth(0, 600);
     setColumnWidth(1, 150);
     setColumnWidth(2, 150);
     setSortingEnabled(true);
-    //header()->setSortIndicator(1, Qt::SortOrder);
-    //model->horizontalHeaderItem(2)->
-    //model->setHorizontalHeaderItem()
     setUniformRowHeights(true);
 }
 

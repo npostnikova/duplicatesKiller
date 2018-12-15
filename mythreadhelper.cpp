@@ -8,32 +8,13 @@
 #include <utility>
 
 
-MyThreadHelper::MyThreadHelper(std::vector<quint64>& threads,QObject * p) : threads(threads), QObject(p) {
-
-}
+MyThreadHelper::MyThreadHelper(std::vector<quint64>& threads,QObject * p) : QObject(p), threads(threads) {}
 
 bool MyThreadHelper::isDone() {
     return flag;
 }
 
-MyThreadHelper::~MyThreadHelper() {
-//    for (auto& reader : fileReaders) {
-//        //if (!reader->isFinished() || !reader->finished) {
-//            //reader->blocked = true;
-//            //if (reader->)
-//            //if (!reader->isFinished()) {
-//        if (!reader->isFinished()) {
-//            reader->quit();
-//            reader->wait();
-//            //}
-//        }
-
-//            //delete reader;
-//        //}
-//    }
-
-//    std::free(exp);
-}
+MyThreadHelper::~MyThreadHelper() {}
 
 void MyThreadHelper::setDone() {
     flag = true;
@@ -62,19 +43,11 @@ void MyThreadHelper::receiveHash(QByteArray hash, size_t threadNumber) {
     updateClasses(hash, threadNumber);
 }
 
-void MyThreadHelper::sendErrors(QObject * receiver) {
-//    std::vector<std::pair<QString, QString>> errorsVec;
-//    for (auto it : errors) {
-//        errorsVec.push_back({it.first, it.second});
-//    }
-//    ErrorEvent * event = new ErrorEvent({errorsVec});
-//    QApplication::postEvent(receiver, event);
-}
-void MyThreadHelper::addError(QString message, QString fileName, size_t fileNumber) {
+void MyThreadHelper::addError(Message const& error, size_t fileNumber) {
     if (threads[fileNumber] != 0)
     threadsNum--;
     threads[fileNumber] = 0;
-    errors.insert({message, fileName});
+    errors.push_back(error);
 }
 
 void MyThreadHelper::killThread(size_t number) {
@@ -83,8 +56,6 @@ void MyThreadHelper::killThread(size_t number) {
         fileReaders[number]->quit();
         fileReaders[number]->wait();
 
-        //delete fileReaders[number];
-        //fileReaders[number] = nullptr;
         needCnt--;
     }
 }

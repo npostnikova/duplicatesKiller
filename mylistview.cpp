@@ -1,9 +1,6 @@
 #include "mylistview.h"
 #include "errorevent.h"
 
-//#include "error.png"
-#include <QPixmap>
-
 MyListView::MyListView(QWidget * parent) : QListView(parent), model(new QStandardItemModel(this)) {
     setUp();
 }
@@ -36,10 +33,11 @@ void MyListView::customEvent(QEvent * event) {
 }
 
 QList<QStandardItem*> MyListView::buildErrorsItem(Message const& error) {
+    insertError(error);
+}
 
-            model->appendRow(makeItem(error));
-            std::cout << "im alive" << std::endl;
-
+void MyListView::insertError(Message const& error) {
+    model->appendRow(makeItem(error));
 }
 
 void MyListView::clean() {

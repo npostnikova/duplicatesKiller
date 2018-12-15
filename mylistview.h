@@ -27,6 +27,8 @@ struct MyListView : public QListView {
     void clean();
 
     void setUp();
+
+    void insertError(Message const& error);
 private:
     QList<QStandardItem*> buildErrorsItem(Message const& errors);
 

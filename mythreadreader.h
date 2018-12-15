@@ -1,8 +1,6 @@
 #ifndef MYTHREADREADER_H
 #define MYTHREADREADER_H
 
-
-
 #include <QObject>
 #include <QFile>
 #include <QThread>
@@ -12,12 +10,9 @@
 class MyThreadReader : public QThread {
     Q_OBJECT
 public:
-
-
-    // ПОФИКСИ!!!!!!!!
     bool blocked = false;
     bool started = false;
-    bool finishedd = false;
+    bool isFinished = false;
     MyThreadReader(size_t n, QString const& fileName, QObject * receiver, QObject * parent = nullptr);
 
 
@@ -26,15 +21,12 @@ public:
 
     void finish();
 
-    void waitt();
+    void waiting();
 
     QByteArray getHash(QByteArray buffer);
     QByteArray bigFileHash();
-
-
 protected:
     void run();
-
 
 public slots:
 
@@ -45,8 +37,7 @@ public slots:
 signals:
     void hash(QByteArray, size_t);
     void eof();
-    void failure(QString, QString, size_t);
-//    void finished();
+    void failure(Message, size_t);
 
 
 private:
@@ -56,14 +47,7 @@ private:
     int state = 0;
     QObject * receiver;
 
-
-    bool enormous = false;
-    // 1 -- read
-    // 2 -- finish
-
-    const size_t BUFFER_SIZE = 1000000; ///!!!!!!!!!! 00000
-
-
+    const size_t BUFFER_SIZE = 1000000;
 };
 
 #endif // MYTHREADREADER_H

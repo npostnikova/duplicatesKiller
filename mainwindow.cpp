@@ -127,9 +127,9 @@ void MainWindow::runSearch(MainWindow * w, QString const& dir, Ui_MainWindow* ui
         emit duplicatesSearcher.sendMessage("The search is done!");
 
         if (ui->duplicatesTreeView->getModel()->rowCount() == 0)
-
             duplicatesSearcher.sendError({"", Message::DONE, "The search is successfully done, no duplicates was found!"});
-        else duplicatesSearcher.sendError({"", Message::DONE, "The search is successfully done!"});
+        else
+            duplicatesSearcher.sendError({"", Message::DONE, "The search is successfully done!"});
     } else {
         emit duplicatesSearcher.sendMessage("The search was cancelled :(");
         duplicatesSearcher.sendError({"", Message::ERROR, "The search was cancelled!"});
@@ -161,14 +161,7 @@ void MainWindow::quit() {
 
 
 void MainWindow::deleteDuplicates() {
-    /*QMessageBox box;
-    QPushButton b;
-    //b.setText("meow");
-    box.addButton("meow", QMessageBox::AcceptRole);
-    b.setIcon(QIcon("/stop.png"));
-    box.show();*/
-    //box.
-    //box.
+
     int n = QMessageBox::warning(0,
                                  "Warning",
     "Do you really want to delete files in my program?"
@@ -188,7 +181,7 @@ void MainWindow::deleteDuplicates() {
 void MainWindow::deleteFile(QString name) {
     QFile file(name);
     if (file.exists()) {
-        std::cout << "remove " << name.toStdString() << std::endl;
+        ui->exceptionsList->insertError({name, Message::DONE, "Deleted: "});
         //file.remove();
     }
 }
