@@ -183,6 +183,8 @@ void MainWindow::deleteFile(QString name) {
     if (file.exists()) {
         ui->exceptionsList->insertError({name, Message::DONE, "Deleted: "});
         //file.remove();
+    } else {
+        ui->exceptionsList->insertError({name, Message::ERROR, "Cannot delete file"});
     }
 }
 
