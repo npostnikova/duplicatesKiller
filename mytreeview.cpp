@@ -11,12 +11,13 @@ MyTreeView::MyTreeView(QWidget * parent) : QTreeView(parent), deleter(parent), m
 
 void MyTreeView::setUp() {
     setEditTriggers(QAbstractItemView::NoEditTriggers);
-    model->setHorizontalHeaderLabels({"File name", "size", "date"});
+    model->setHorizontalHeaderLabels({"File name", "Size", "Date", "Number"});
     setModel(model);
     header()->setStretchLastSection(false);
     header()->setSectionResizeMode(0, QHeaderView::Stretch);
     setColumnWidth(1, 150);
     setColumnWidth(2, 150);
+    setColumnWidth(3, 80);
     setSortingEnabled(true);
     setUniformRowHeights(true);
 }
@@ -25,7 +26,7 @@ void MyTreeView::setUp() {
 QList<QStandardItem*> prepareRow(const QString &first,
                                                 const QString &second,
 
-                                  const QString &third) {
+                                  const QString &third, const QString& num = nullptr) {
     QList<QStandardItem *> rowItems;
 
     QStandardItem * item = new QStandardItem;
@@ -36,6 +37,8 @@ QList<QStandardItem*> prepareRow(const QString &first,
     rowItems << item;
     rowItems << new QStandardItem(second);
     rowItems << new QStandardItem(third);
+    if (num != nullptr)
+        rowItems << new QStandardItem(num);
     return rowItems;
 }
 
@@ -44,7 +47,7 @@ QList<QStandardItem*> MyTreeView::buildDuplicatesItem(std::vector<QString> const
         throw "Wrong duplicates item request";
     }
     auto firstFile = QFileInfo(fileNames[0]);
-    auto pr = prepareRow(firstFile.filePath(), QString::number(firstFile.size()), firstFile.birthTime().toString("dd.MM.yyyy"));
+    auto pr = prepareRow(firstFile.filePath(), QString::number(firstFile.size()), firstFile.birthTime().toString("dd.MM.yyyy"), QString::number(fileNames.size()));
     for (auto name : fileNames) {
         auto fileInfo = QFileInfo(name);
         pr.first()->appendRow(prepareRow(fileInfo.absoluteFilePath(), QString::number(fileInfo.size()), fileInfo.birthTime().toString("dd.MM.yyyy")));
