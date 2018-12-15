@@ -34,10 +34,10 @@ void MyThreadReader::readData() {
     while (!started) {;}
 
     QByteArray data = file.read(BUFFER_SIZE);
-    if (data.size() == 0) {
-        emit failure({fileName, Message::ERROR, "Could not read from the file"}, number);
-        return;
-    }
+    //if (data.size() == 0) {
+     //emit failure({fileName, Message::ERROR, "Could not read from the file"}, number);
+     //   return;
+    //}
     emit hash(getHash(data), number);
 
     if (file.atEnd()) {
