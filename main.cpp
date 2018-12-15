@@ -15,7 +15,6 @@ int main(int argc, char *argv[])
     a.setWindowIcon(QIcon(":/img/rocket.png"));
     MainWindow w;
 
-    cout << QDir::currentPath().toStdString();
     w.show();
     a.thread()->setPriority(QThread::HighestPriority);
     return a.exec();
