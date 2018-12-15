@@ -173,10 +173,6 @@ void DuplicatesSearcher::divideSmallFilesOnThreads(std::vector<std::vector<QStri
 void DuplicatesSearcher::dealWithBigFiles(std::vector<QString> const& names) {
     std::vector<quint64> threadNo(names.size(), 0);
 
-    std::vector<QMetaObject::Connection> connections;
-    connections.reserve(3 * names.size());
-
-
     MyThreadHelper helper(threadNo);
     helper.threadsNum = names.size();
     auto&threadsNum = helper.threadsNum;
@@ -189,9 +185,9 @@ void DuplicatesSearcher::dealWithBigFiles(std::vector<QString> const& names) {
 
     for (size_t i = 0; i < threadsNum; i++) {
         fileReaders.push_back(new (&MEM[i]) MyThreadReader(i, names[i], &helper));
-        connections.push_back(QObject::connect(fileReaders[i], SIGNAL(eof()), &helper, SLOT(setDone())));
-        connections.push_back(QObject::connect(fileReaders[i], SIGNAL(hash(QByteArray, size_t)), &helper, SLOT(receiveHash(QByteArray, size_t))));
-        connections.push_back(QObject::connect(fileReaders[i], SIGNAL(failure(QString, QString, size_t)), &helper, SLOT(addError(QString, QString, size_t))));
+        QObject::connect(fileReaders[i], SIGNAL(eof()), &helper, SLOT(setDone()));
+        QObject::connect(fileReaders[i], SIGNAL(hash(QByteArray, size_t)), &helper, SLOT(receiveHash(QByteArray, size_t)));
+        QObject::connect(fileReaders[i], SIGNAL(failure(Message, size_t)), &helper, SLOT(addError(Message, size_t)));
     }
     helper.needCnt = threadsNum;
     for (size_t i = 0; i < threadsNum; i++) {
@@ -267,7 +263,6 @@ void DuplicatesSearcher::runBigFiles(std::vector<std::vector<QString>> const& bl
         emit updateProgress(curProgress);
     }
 }
-
 
 
 bool DuplicatesSearcher::isCanceled() {
