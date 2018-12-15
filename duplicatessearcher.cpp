@@ -273,6 +273,8 @@ bool DuplicatesSearcher::isCanceled() {
 void DuplicatesSearcher::divideFilesBySize(QDir dir,
                                            std::map<size_t, std::vector<QString>>& sizes) {
     QFileInfoList dirList = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::AllEntries | QDir::NoSymLinks);
+    if (isCanceled())
+        return;
     for (auto d : dirList) {
         if (isCanceled() || !d.isReadable())
             return;

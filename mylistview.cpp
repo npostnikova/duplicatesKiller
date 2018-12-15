@@ -32,7 +32,7 @@ void MyListView::customEvent(QEvent * event) {
     QWidget::customEvent(event);
 }
 
-QList<QStandardItem*> MyListView::buildErrorsItem(Message const& error) {
+void MyListView::buildErrorsItem(Message const& error) {
     insertError(error);
 }
 
