@@ -16,6 +16,7 @@
 #include <QTimer>
 #include <QObject>
 #include <QMessageBox>
+#include <QDesktopServices>
 
 #include <QFutureWatcher>
 #include <iostream>
@@ -48,7 +49,8 @@ void MainWindow::onClick(QStandardItem* item) {
 
 void MainWindow::openInNotepad(const QModelIndex& index) {
     if (index.column() == 0 && ui->duplicatesTreeView->getModel()->itemFromIndex(index)->rowCount() == 0) {
-        //QDesktopServices::openUrl(QUrl::fromLocalFile( absolute_pathQProcess::execute("notepad.exe", {index.data().toString()});
+        QDesktopServices::openUrl(QUrl::fromLocalFile(index.data().toString()));
+                                      //absolute_pathQProcess::execute("notepad.exe", {index.data().toString()});
         // item activated!!!!
     }
 }
@@ -82,7 +84,7 @@ MainWindow::MainWindow(QWidget *parent)
                 SLOT(changedChild(QStandardItem*)));
 
     connect(ui->duplicatesTreeView,
-                &MyTreeView::doubleClicked,
+                &MyTreeView::activated,
                 this,
                 &MainWindow::openInNotepad);
 
@@ -94,7 +96,9 @@ MainWindow::MainWindow(QWidget *parent)
     scan_directory(QDir::currentPath());
 }
 
-MainWindow::~MainWindow() {}
+MainWindow::~MainWindow() {
+    // canellation
+}
 
 
 void MainWindow::select_directory()
@@ -131,8 +135,8 @@ void MainWindow::runSearch(MainWindow * w, QString const& dir, Ui_MainWindow* ui
         else
             duplicatesSearcher.sendError({"", Message::DONE, "The search is successfully done!"});
     } else {
-        //emit duplicatesSearcher.sendMessage("The search was cancelled :(");
-        //duplicatesSearcher.sendError({"", Message::ERROR, "The search was cancelled!"});
+        emit duplicatesSearcher.sendMessage("The search was cancelled :(");
+        duplicatesSearcher.sendError({"", Message::ERROR, "The search was cancelled!"});
     }
 }
 
