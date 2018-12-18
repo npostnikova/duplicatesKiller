@@ -52,7 +52,8 @@ void MyThreadHelper::addError(Message const& error, size_t fileNumber) {
 
 void MyThreadHelper::killThread(size_t number) {
     if (fileReaders[number] != nullptr) {
-        fileReaders[number]->blocked = true;
+        stop(number);
+        //fileReaders[number]->blocked = true;
         fileReaders[number]->quit();
         fileReaders[number]->wait();
 

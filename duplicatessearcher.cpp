@@ -18,8 +18,6 @@
 #include <QtConcurrent/QtConcurrentMap>
 #include <QtConcurrent/QtConcurrentRun>
 
-#define min(a,b) ((a)<(b)?(a):(b))
-#define max(a,b) ((a)>(b)?(a):(b))
 
 
 DuplicatesSearcher::DuplicatesSearcher(QString const& dir, QWidget * duplicatesReceiver, QWidget * errorsReceiver) :
