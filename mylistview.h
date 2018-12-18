@@ -30,7 +30,7 @@ struct MyListView : public QListView {
 
     void insertError(Message const& error);
 private:
-    QList<QStandardItem*> buildErrorsItem(Message const& errors);
+    void buildErrorsItem(Message const& errors);
 
     QStandardItemModel * model;
 };
